@@ -3,7 +3,7 @@
  * ND, January 2013
  */
 
-var PTree = (function () {
+var PTree = (function(){
 
 	
 	var Calc = {};
@@ -17,41 +17,45 @@ var PTree = (function () {
 	};
 	
 	var Vertex = function(argX, argY, r, argPhi) {			
-		var phi = argPhi,
-			x = r * Math.cos(phi),
-			y = r * Math.sin(phi);
-			
-		this.x = Math.round(x + argX);
-		this.y = Math.round(y + argY);
-	
-		return this;		
-	}
-	
-	var BaseLine = function (A, B) {		
-		this.xAxis = ( B.x - A.x );
-		this.yAxis = ( B.y - A.y);			
-		this.r = Math.sqrt( Math.pow(this.xAxis,2) + Math.pow(this.yAxis,2) );
-		this.phi = Math.atan2(this.yAxis, this.xAxis);			
 		
-		return this;
+		var that = this,
+			x = r * Math.cos(argPhi),
+			y = r * Math.sin(argPhi);
+			
+		that.x = Math.round(x + argX);
+		that.y = Math.round(y + argY);
+	
+		return that;		
+	};
+	
+	var BaseLine = function (A, B) {	
+		
+		var that = this;
+	
+		that.xAxis = ( B.x - A.x );
+		that.yAxis = ( B.y - A.y);			
+		that.r = Math.sqrt( Math.pow(that.xAxis, 2) + Math.pow(that.yAxis, 2) );
+		that.phi = Math.atan2( that.yAxis, that.xAxis );			
+		
+		return that;
 	};
 	
 	var Branch = function (A, B) {
 		
-		var baseLine = new BaseLine(A, B);
+		var baseLine = new BaseLine(A, B),
+			that = this;
 		
-		this.A = A;
-		this.B = B;					
-		this.C = new Vertex(A.x, A.y, baseLine.r, baseLine.phi + Branch._90degInRads);
-		this.D = new Vertex(B.x, B.y, baseLine.r, baseLine.phi + Branch._90degInRads)			
-		this.E = new Vertex(this.C.x, this.C.y, baseLine.r * Math.cos(Branch.triangleDegInRads), baseLine.phi + Branch.triangleDegInRads);	
+		that.A = A;
+		that.B = B;					
+		that.C = new Vertex(A.x, A.y, baseLine.r, baseLine.phi + Branch._90degInRads);
+		that.D = new Vertex(B.x, B.y, baseLine.r, baseLine.phi + Branch._90degInRads);			
+		that.E = new Vertex(that.C.x, that.C.y, baseLine.r * Math.cos(Branch.triangleDegInRads), baseLine.phi + Branch.triangleDegInRads);	
 
-		return this;
+		return that;
 	};	
 			
 	Branch.triangleDegInRads = Calc.deg2rad(45);
 	Branch._90degInRads = Calc.deg2rad(90);		
-
 	
 	var PTree = function (order, angle) {
 	
@@ -65,9 +69,9 @@ var PTree = (function () {
 		that.startY = 0;
 		that.startR = 120;
 		that.startPhi = 0;	
-		this.init();
+		that.init();
 		
-		return this;
+		return that;
 	};
 
 	PTree.prototype.init = function () {
@@ -77,11 +81,11 @@ var PTree = (function () {
 			B = new Vertex(A.x, A.y, that.startR, that.startPhi),
 			branch = null;
 			
-		if (that.angle != null) {
+		if (that.angle !== null) {
 			Branch.triangleDegInRads = Calc.deg2rad(that.angle);
 		}
 		
-		branch = new Branch(A, B, 0);
+		branch = new Branch(A, B);
 		
 		that.canvas = document.getElementById('myCanvas');
 		that.context = that.canvas.getContext('2d');
@@ -116,31 +120,43 @@ var PTree = (function () {
 	PTree.prototype.drawTree = function(branch) {
 	
 		var that = this,
-			branches = [];
+			branches = [],
+			branch = branch,
+			baseBranch = [],
+			branchPair = [],
+			leftB, rightB = null;
 		
-		for (var i = 0; i < that.order; i++) {
+		for (var branchOrder = 0; branchOrder < that.order; branchOrder++) {
 			
-			if (i == 0) {
-				var base = [];
-				base.push(branch)
-				that.drawBranch(branch, i);
-				branches.push(base);
+			if (branchOrder === 0) {
+				
+				that.drawBranch(branch, branchOrder);
+				
+				baseBranch.push(branch)				
+				branches.push(baseBranch);
+				
 			} else {
-				var branchPair = [];
-				for (var j in branches[i - 1]) {						
-					var branch = (branches[i - 1][j]);
-					var leftB = new Branch(branch.C, branch.E);
-					var rightB = new Branch(branch.E, branch.D);
+							
+				for (var leaf in branches[branchOrder - 1]) {	
+					
+					branch = branches[branchOrder - 1][leaf];
+					leftB = new Branch(branch.C, branch.E);
+					rightB = new Branch(branch.E, branch.D);
+					
+					that.drawBranch(leftB, branchOrder);
+					that.drawBranch(rightB, branchOrder);
+					
 					branchPair.push(leftB);					
 					branchPair.push(rightB);
-					that.drawBranch(leftB, i);
-					that.drawBranch(rightB, i);
 				}
+				
 				branches.push(branchPair);			
 			}
 		}
+		
+		console.log(branches);
 	}
-
+	
 	return PTree;
 
 })();
