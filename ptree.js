@@ -123,7 +123,7 @@ var PTree = (function(){
 			branches = [],
 			branch = branch,
 			baseBranch = [],
-			branchPair = [],
+			branchLeafs = [],
 			leftB, rightB = null;
 		
 		for (var branchOrder = 0; branchOrder < that.order; branchOrder++) {
@@ -136,7 +136,7 @@ var PTree = (function(){
 				branches.push(baseBranch);
 				
 			} else {
-				branchPair = [];			
+				branchLeafs = [];			
 				for (var leaf in branches[branchOrder - 1]) {	
 					
 					branch = branches[branchOrder - 1][leaf];
@@ -146,10 +146,10 @@ var PTree = (function(){
 					that.drawBranch(leftB, branchOrder);
 					that.drawBranch(rightB, branchOrder);
 					
-					branchPair.push(leftB);					
-					branchPair.push(rightB);
+					branchLeafs.push(leftB);					
+					branchLeafs.push(rightB);
 				}			
-				branches.push(branchPair);			
+				branches.push(branchLeafs);			
 			}
 		}
 	}
