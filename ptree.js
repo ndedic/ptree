@@ -3,7 +3,7 @@
  * ND, January 2013
  */
 
-var PTree = (function(){
+var PTree = (function () {
 
 	
 	var Calc = {};
