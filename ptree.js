@@ -61,13 +61,13 @@ var PTree = (function(){
 	
 		var that = this;
 
-		that.X_MARGIN = 500;
-		that.Y_MARGIN = 600;
+		that.X_MARGIN = 400;
+		that.Y_MARGIN = 650;
 		that.order = order || 10;			
 		that.angle = angle || null;
 		that.startX = 0;
 		that.startY = 0;
-		that.startR = 120;
+		that.startR = 150;
 		that.startPhi = 0;	
 		that.init();
 		
@@ -136,7 +136,7 @@ var PTree = (function(){
 				branches.push(baseBranch);
 				
 			} else {
-							
+				branchPair = [];			
 				for (var leaf in branches[branchOrder - 1]) {	
 					
 					branch = branches[branchOrder - 1][leaf];

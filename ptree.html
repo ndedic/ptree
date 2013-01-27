@@ -14,16 +14,20 @@
     <canvas id="myCanvas" width="1100" height="700"></canvas>
     <script src="ptree.js"></script>
 	<script>
-		
+		/*new PTree(10, 45);
+		*/
+		var start = (new Date()).getTime();
 		var i = 1;
 		var interval = setInterval(function () {
 			new PTree(i, 45);			
 			if (i > 10) {
 				clearInterval(interval);
+						var end = (new Date()).getTime();
+						console.log(end - start);
 			}
 			i++;
 		}, 50);
-		
+
 	</script>
   </body>
 </html>
