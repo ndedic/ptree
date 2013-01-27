@@ -53,13 +53,13 @@ var PTree = (function(){
 	Branch._90degInRads = Calc.deg2rad(90);		
 
 	
-	var PTree = function (levels, angle) {
+	var PTree = function (order, angle) {
 	
 		var that = this;
 
 		that.X_MARGIN = 500;
 		that.Y_MARGIN = 600;
-		that.levels = levels || 10;			
+		that.order = order || 10;			
 		that.angle = angle || null;
 		that.startX = 0;
 		that.startY = 0;
@@ -89,7 +89,7 @@ var PTree = (function(){
 	
 	};
 
-	PTree.prototype.drawBranch = function(branch, level) {
+	PTree.prototype.drawBranch = function(branch, order) {
 		
 		var that = this;
 		
@@ -103,7 +103,7 @@ var PTree = (function(){
 		that.context.lineTo(branch.B.x + that.X_MARGIN, -branch.B.y + that.Y_MARGIN);
 		that.context.lineTo(branch.D.x + that.X_MARGIN, -branch.D.y + that.Y_MARGIN);
 		
-		if (level < 2) {
+		if (order < 2) {
 			that.context.fillStyle = 'brown';
 		} else {
 			that.context.fillStyle = 'green';			
@@ -118,7 +118,7 @@ var PTree = (function(){
 		var that = this,
 			branches = [];
 		
-		for (var i = 0; i < that.levels; i++) {
+		for (var i = 0; i < that.order; i++) {
 			
 			if (i == 0) {
 				var base = [];
