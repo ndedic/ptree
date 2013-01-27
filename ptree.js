@@ -148,13 +148,10 @@ var PTree = (function(){
 					
 					branchPair.push(leftB);					
 					branchPair.push(rightB);
-				}
-				
+				}			
 				branches.push(branchPair);			
 			}
 		}
-		
-		console.log(branches);
 	}
 	
 	return PTree;
