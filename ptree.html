@@ -5,7 +5,7 @@
       body {
         margin: 0px;
         padding: 0px;
-		background: whiteSmoke;
+        background: whiteSmoke;
       }
     </style>
 	<title>Pythagoras tree</title>
@@ -15,17 +15,22 @@
     <script src="ptree.js"></script>
 	<script>
 		
-		var start = (new Date()).getTime();
-		var i = 1;
-		var interval = setInterval(function () {
-			new PTree(i, 45);			
-			if (i > 10) {
-				clearInterval(interval);
-				var end = (new Date()).getTime();
-				//console.log(end - start);
-			}
-			i++;
-		}, 50);
+            var start = (new Date()).getTime(),
+                i = 1;
+
+            var interval = setInterval(function () {
+                
+                    new PTree(i, 45);			
+                    
+                    if (i > 12) {
+                        
+                            clearInterval(interval);
+                            var end = (new Date()).getTime();
+                            console.log((end - start) / 1000);
+                            
+                    }
+                    ++i;
+            }, 1);
 
 	</script>
   </body>
