@@ -141,7 +141,7 @@ var PTree = (function(){
 
                 that.drawBranch(branch, branchOrder);
 
-                baseBranch.push(branch)				
+                baseBranch.push(branch);
                 branches.push(baseBranch);
 
             } else {
@@ -165,7 +165,7 @@ var PTree = (function(){
                 cache[branchOrder] = branchLeafs;                
             }
         }
-    }
+    };
 
     return PTree;
     
