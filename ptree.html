@@ -14,13 +14,13 @@
     <canvas id="myCanvas" width="1100" height="700"></canvas>
     <script src="ptree.js"></script>
 	<script>
-		
+	(function(){
             var start = (new Date()).getTime(),
                 i = 1;
 
             var interval = setInterval(function () {
                 
-                    new PTree(i, 45);			
+                    var pt = new PTree(i, 45);			
                     
                     if (i > 12) {
                         
@@ -31,7 +31,7 @@
                     }
                     ++i;
             }, 1);
-
+	})();
 	</script>
   </body>
 </html>
