@@ -17,9 +17,6 @@
 	(function(){
             var i = 1;
 
-	    console.time = console.time || function () {};
-	    console.timeEnd = console.timeEnd || function () {};
-
 	    console.time('draw');
 
             var interval = setInterval(function () {
@@ -27,11 +24,9 @@
                     var pt = new PTree(i, 45);			
                     
                     if (i > 12) {
-                        
                             clearInterval(interval);
                             var end = (new Date()).getTime();
                             console.timeEnd('draw');
-                            
                     }
                     ++i;
             }, 1);
