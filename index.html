@@ -17,6 +17,8 @@
 	(function(){
             var i = 1;
 
+	    console.time = console.time || function () {};
+
 	    console.time('draw');
 
             var interval = setInterval(function () {
