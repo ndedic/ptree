@@ -15,9 +15,10 @@
     <script src="ptree.js"></script>
 	<script>
 	(function(){
+
             var i = 1;
 
-	    console.time('draw');
+	    // console.time('draw');
 
             var interval = setInterval(function () {
                 
@@ -26,7 +27,7 @@
                     if (i > 12) {
                             clearInterval(interval);
                             var end = (new Date()).getTime();
-                            console.timeEnd('draw');
+                            //console.timeEnd('draw');
                     }
                     ++i;
             }, 1);
