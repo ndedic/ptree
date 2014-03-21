@@ -15,8 +15,9 @@
     <script src="ptree.js"></script>
 	<script>
 	(function(){
-            var start = (new Date()).getTime(),
-                i = 1;
+            var i = 1;
+
+	    console.time('draw');
 
             var interval = setInterval(function () {
                 
@@ -26,7 +27,7 @@
                         
                             clearInterval(interval);
                             var end = (new Date()).getTime();
-                            console.log((end - start) / 1000);
+                            console.timeEnd('draw');
                             
                     }
                     ++i;
